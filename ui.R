@@ -30,26 +30,25 @@ shinyUI(dashboardPage(
   #body ####
   dashboardBody(
     
-    #Intro Tab ####
-    tabItem(
-      tabItem(tabName = 'Introduction',
-              fluidPage(box(textOutput('text'))))
-    ),
-    
-    #Graph Tab ####
     tabItems(
+      
+      #Intro ####
+      tabItem(tabName = 'Intro',
+              fluidRow(
+                h3('Hello, in this project i will '))
+              ),
+      
+      #Graph ####
       tabItem(tabName = 'Graph',
               fluidRow(
                 box(plotOutput('Boro_Bar')),
-                box(plotOutput('Boro_Ratio'), width = 3)),
-              fluidRow(
-                box(plotOutput('monthly_trend')),
-                box(plotOutput('School_Type'))
-              )),
+                box(plotOutput('Boro_Pie'), width = 3),
+                box(plotOutput('Boro_Point'), width = 3)),
+              fluidRow(box(plotOutput('monthly_trend')),
+                       box(plotOutput('School_Type')))),
       
-    #Data Table ####
-    tabItem(
-      tabName = 'Data_Table',
+      #Data Table ####
+      tabItem(tabName = 'Data_Table',
               fluidRow(box(DT::dataTableOutput('table'),
                            width = 12)))
       

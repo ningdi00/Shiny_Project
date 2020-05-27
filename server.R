@@ -23,7 +23,7 @@ shinyServer(
            group_by(., Violation.Category, Borough) %>%
            ggplot(aes(x = Borough, fill = Violation.Category)) +
            geom_bar() +
-           labs(title = 'Violations by borough',
+           labs(title = 'Violations by Borough',
                 x = 'Borough',
                 y = 'Violations') +
            scale_fill_brewer(palette = 'Set3') +
@@ -57,7 +57,7 @@ shinyServer(
          theme(legend.key = element_blank())
      })
    
-     output$Boro_Ratio = renderPlot({
+     output$Boro_Point = renderPlot({
        NYC_Daycare_Clean() %>%
          group_by(Borough, Violation.Category) %>%
          summarise(Violation.Per.Daycare.B = n() / n_distinct(Full.Address)) %>%
@@ -66,11 +66,37 @@ shinyServer(
          labs(title = 'Violation Per Daycare by Borough',
               x = 'Borough',
               y = 'Violation Per Daycare') +
-         scale_fill_brewer(palette = 'Set3') +
+         scale_color_brewer(palette = 'Set3') +
          theme_bw() +
          theme(legend.key = element_blank())
      })
    
-   
+     output$Boro_Pie = renderPlot({
+       NYC_Daycare_Clean() %>% 
+         group_by(Borough) %>% 
+         summarise(Boro_Vio = n()) %>%
+         mutate(sum_Vio = sum(Boro_Vio), Boro_Precent = paste0(round(Boro_Vio/sum_Vio,2))) %>%
+         ggplot(aes(x = '', y = Boro_Vio, fill = Borough)) +
+         geom_bar(stat = 'identity', width = 1, color = 'white') +
+         coord_polar('y', start = 0) +
+         geom_text(aes(label = Boro_Precent), position = position_stack(vjust = 0.5)) +
+         labs(title = 'Violation Precent by Borough',
+              x = '',
+              y = 'Precentage %') +
+         scale_fill_brewer(palette = 'Set3') +
+         theme_bw() +
+         theme(axis.text = element_blank(),
+               axis.ticks = element_blank(),
+               panel.grid  = element_blank())
+     })
+    
+     # Output$NYC_Map = renderLeaflet({
+     #   
+     # })
+     # 
+     # output$Intro = renderText({
+     #   
+     # })
+     
    }
  )
