@@ -89,7 +89,25 @@ shinyServer(
                axis.ticks = element_blank(),
                panel.grid  = element_blank())
      })
-    
+   
+     output$Port_Image = renderImage({
+       image = (src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3Q6T2MaUY6O1zEb1IJr0lYNkdPUUkTu07NpTkwtBQGCjb-oK-&usqp=CAU')
+     })
+     
+     url_me = a("https://www.linkedin.com/in/dning", 
+                href="https://www.linkedin.com/in/dning")
+     
+     output$web_me <- renderUI({
+       tagList("LinkedIn", url_me)
+     })
+
+     url_NYC = a("https://data.cityofnewyork.us/Health/DOHMH-Childcare-Center-Inspections/dsg6-ifza", 
+                 href="https://data.cityofnewyork.us/Health/DOHMH-Childcare-Center-Inspections/dsg6-ifza")
+     
+     output$web_NYC <- renderUI({
+       tagList("NYC OpenData", url_NYC)
+     })
+     
      # Output$NYC_Map = renderLeaflet({
      #   
      # })
