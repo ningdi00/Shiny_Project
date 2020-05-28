@@ -125,7 +125,7 @@ shinyServer(function(input, output, session) {
       filter(ZipCode %in% input$Zipcode) %>% 
       summarise(Vio_Per_Daycare = n())%>%
       ggplot(aes(x = Full.Address, y = Vio_Per_Daycare)) +
-      geom_col() +
+      geom_col(fill = 'lightblue') +
       coord_flip() +
       labs(title = 'Violation by Individual Daycares',
            x = 'Daycares',
